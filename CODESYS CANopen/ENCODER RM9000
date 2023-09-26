@@ -1,0 +1,38 @@
+PROGRAM RM9000_PROG_ST
+VAR
+	//RM9000 ENCODER
+	COP_SDOwriteRM9000: ifmCOP_MG.COP_SDOwrite;
+	SET_ZERO_RM_Preset: BOOL;
+	nodeRM_Preset: USINT:=21; //Node ID
+	indexRM_Preset: UINT:=16#2103;  //Preset Value (No debe exceder la resolucion fisica)
+	subIndexRM_Preset: USINT:=16#0;
+	DATA_1: POINTER TO USINT:=1;  // 1 Para resetear a cero el valor de pasos por revolucion (Posición del eje)| No fue necesario usar ADR
+	udiLenRM: UDINT:=0;  //Varia segun sensor, en este caso es 0
+	doneRM: BOOL;
+	ErrorRM: BOOL;
+	diagInfoRM: ifmTypes.DIAG_INFO;
+	//Data del Encoder 
+	lastValueRM AT %ID0: UDINT;
+	currentValueRM AT %ID1: UDINT;	
+	a1: UDINT;
+	a2: UDINT;
+	
+END_VAR
+
+//========================================================================================================
+
+COP_SDOwriteRM9000(
+	xExecute:=SET_ZERO_RM_Preset , 
+	eChannel:= 1 ,   //Channel CAN - Review Device Manual
+	usiNode:= nodeRM_Preset, 
+	uiIndex:= indexRM_Preset , 
+	usiSubIndex:= subIndexRM_Preset , 
+	pData:= Data_1 , 
+	udiLen:= udiLenRM , 
+	tTimeout:= T#10S ,
+	xDone=> doneRM , 
+	xError=> errorRM, 
+	eDiagInfo=> diagInfoRM);
+	
+a1:= lastValueRM;
+a2:= currentValueRM;
