@@ -1,0 +1,40 @@
+PROGRAM JN2100_Data
+VAR
+	//RM9000 ENCODER
+	COP_SDOwriteJN2100: ifmCOP_MG.COP_SDOwrite;
+	SET_ZERO_JN_Preset: BOOL;
+	nodeRM_Preset: USINT:=15; // Sensor Node ID
+	indexRM_Preset: UINT:=16#2046;  //Preset Value (No debe exceder la resolucion fisica)
+	subIndexRM_Preset: USINT:=16#0;
+	DT_0: USINT:=1;
+	DATA_1: POINTER TO USINT:=1;  // 1 Para resetear a cero el valor angular del sensor| Es necesario usar ADR
+	udiLenRM: UDINT:=1;  //Varia segun sensor, en este caso es 1
+	doneRM: BOOL;
+	ErrorRM: BOOL;
+	diagInfoRM: ifmTypes.DIAG_INFO;
+	//Data del Encoder 
+	axis_X AT %IW0: INT;
+	axis_Y AT %IW1: INT;	
+	a1: INT;
+	a2: INT;
+END_VAR
+
+//==================================================================================================
+
+DATA_1 := ADR(DT_0);
+
+COP_SDOwriteJN2100(
+	xExecute:= SET_ZERO_JN_Preset , 
+	eChannel:= 1 ,   //Channel CAN - Review Device Manual
+	usiNode:= nodeRM_Preset, 
+	uiIndex:= indexRM_Preset , 
+	usiSubIndex:= subIndexRM_Preset , 
+	pData:= Data_1 , 
+	udiLen:= udiLenRM , 
+	tTimeout:= T#10S ,
+	xDone=> doneRM , 
+	xError=> errorRM, 
+	eDiagInfo=> diagInfoRM);
+	
+a1:= axis_X;
+a2:= axis_Y;
