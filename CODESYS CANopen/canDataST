@@ -1,0 +1,40 @@
+PROGRAM canDataST
+VAR
+	varTest: BOOL;
+	CAN_ENABLE_1: ifmRCAN.CAN_Enable;
+	CAN_TX_1: ifmRCAN.CAN_Tx;
+	CAN_RX_1: ifmRCAN.CAN_Rx;
+	txData_1: ARRAY [0..7] OF USINT; 
+	rxData_1: ARRAY [0..7] OF USINT; 
+	diagInfo_tx1: ifmRCAN.ifmTypes.DIAG_INFO;
+	
+	diagInfo_rx1: ifmRCAN.ifmTypes.DIAG_INFO;
+	usiDLC_rx1: USINT;
+	error_tx1: BOOL;
+	error_rx1: BOOL;
+END_VAR
+
+//=====================================================================
+
+CAN_ENABLE_1(xEnable:= TRUE, xError=> , eDiagInfo=> , eChannel:= 1, eBaudrate:= 125);
+
+CAN_TX_1(
+	xEnable:= TRUE, 
+	eChannel:= 1 , 
+	udiID:= 200, 
+	xExtended:= FALSE , 
+	usiDLC:= 8, 
+	aData:= txData_1,
+	xError=> error_tx1 , 
+	eDiagInfo=> diagInfo_tx1 );
+
+CAN_RX_1(
+	xEnable:= TRUE, 
+	eChannel:= 1 , 
+	xExtended:= FALSE, 
+	udiID:= 205,
+	aData=> rxData_1, 
+	usiDLC=> usiDLC_rx1 , 
+	uiAvailable=> ,
+	xError=> error_rx1, 
+	eDiagInfo=> diagInfo_rx1 );
