@@ -1,0 +1,538 @@
+[
+    {
+        "id": "0bcb82a47162c769",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 500,
+        "wires": [
+            [
+                "9af9f52c217ea8b3"
+            ]
+        ]
+    },
+    {
+        "id": "9af9f52c217ea8b3",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/DI_STATIC 0",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 620,
+        "y": 500,
+        "wires": [
+            [
+                "2e4ecd7a70fdb7c1"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6b6d77385b497c1a",
+        "type": "debug",
+        "z": "590aed86c3482a18",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2e4ecd7a70fdb7c1",
+        "type": "json",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 890,
+        "y": 500,
+        "wires": [
+            [
+                "6b6d77385b497c1a"
+            ]
+        ]
+    },
+    {
+        "id": "4ee7e526e116dd4d",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "9b865d56aac0779d"
+            ]
+        ]
+    },
+    {
+        "id": "9b865d56aac0779d",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/ID_OWASYS",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 600,
+        "y": 320,
+        "wires": [
+            [
+                "0610756b888ccc08"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9f0ce40e7329dc3a",
+        "type": "debug",
+        "z": "590aed86c3482a18",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0610756b888ccc08",
+        "type": "function",
+        "z": "590aed86c3482a18",
+        "name": "function 1",
+        "func": "msg.payload = msg.payload.slice(0,6)\nconst parsed = msg.payload.toString();\nmsg.payload = parsed;\nreturn msg\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 320,
+        "wires": [
+            [
+                "9f0ce40e7329dc3a"
+            ]
+        ]
+    },
+    {
+        "id": "10ed8fdd46ce06c4",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "ID único del Owasys",
+        "info": "",
+        "x": 510,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b9d03478cd3ecac4",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Entrada digital 0",
+        "info": "",
+        "x": 520,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "4b654172516cb904",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 1040,
+        "wires": [
+            [
+                "a6b3e55c60750e55"
+            ]
+        ]
+    },
+    {
+        "id": "a6b3e55c60750e55",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/DIGITAL_OUTPUT_OWASYS 1 0",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 680,
+        "y": 1040,
+        "wires": [
+            [
+                "e35feaafd21ed033"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e35feaafd21ed033",
+        "type": "debug",
+        "z": "590aed86c3482a18",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "4d39cfc504da7f67",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 1160,
+        "wires": [
+            [
+                "0f1cc42dcc928a9b"
+            ]
+        ]
+    },
+    {
+        "id": "0f1cc42dcc928a9b",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/DIGITAL_OUTPUT_OWASYS 1 1",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 680,
+        "y": 1160,
+        "wires": [
+            [
+                "a24e5f1088d61084"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a24e5f1088d61084",
+        "type": "debug",
+        "z": "590aed86c3482a18",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "5c273d5b0da5c9b0",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Salida digital 1 a 0",
+        "info": "",
+        "x": 530,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "fb7ca80914194606",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Salida digital 0 a 1",
+        "info": "",
+        "x": 550,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "bb7c27c3ba3f7db3",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Entrada analogica 1 con rango 1",
+        "info": "",
+        "x": 570,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e28d5e4fa5ea6df3",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 680,
+        "wires": [
+            [
+                "398b65effb3f89ab"
+            ]
+        ]
+    },
+    {
+        "id": "398b65effb3f89ab",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/AI_STATIC 1 1",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 620,
+        "y": 680,
+        "wires": [
+            [
+                "8cde3a6ac489c586"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8cde3a6ac489c586",
+        "type": "json",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 890,
+        "y": 680,
+        "wires": [
+            [
+                "77d9b15554f9cb18"
+            ]
+        ]
+    },
+    {
+        "id": "77d9b15554f9cb18",
+        "type": "debug",
+        "z": "590aed86c3482a18",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "322e380ffddab717",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Rango 0: 0 - 5.12V",
+        "info": "",
+        "x": 530,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "0287d1cc4e77924b",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Rango 1: 0 - 30.72V",
+        "info": "",
+        "x": 530,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2007e2f22033a70e",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Asegurarse de que las salidas digitales sean 0 antes de reconfigurarlos como entradas.",
+        "info": "",
+        "x": 540,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "4f5b01ad7a2ca421",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "4096 valores en ambos rangos",
+        "info": "",
+        "x": 770,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "92bf7312ea539466",
+        "type": "inject",
+        "z": "590aed86c3482a18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "46a8f23ddd3806d4"
+            ]
+        ]
+    },
+    {
+        "id": "46a8f23ddd3806d4",
+        "type": "exec",
+        "z": "590aed86c3482a18",
+        "command": "/home/debian/owasys4x_binaries/LEDS_OWASYS",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5b5736b1da34847a",
+        "type": "comment",
+        "z": "590aed86c3482a18",
+        "name": "Activa la configuración de LEDs del Owasys",
+        "info": "",
+        "x": 590,
+        "y": 100,
+        "wires": []
+    }
+]

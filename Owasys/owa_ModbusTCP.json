@@ -1,0 +1,334 @@
+[
+    {
+        "id": "a559cbfd2aab7f39",
+        "type": "modbus-flex-sequencer",
+        "z": "b380fede0a5e6e03",
+        "name": "",
+        "sequences": [
+            {
+                "name": "port1",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "1002",
+                "quantity": "4"
+            },
+            {
+                "name": "port2",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "2002",
+                "quantity": "4"
+            },
+            {
+                "name": "port3",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "3002",
+                "quantity": "4"
+            },
+            {
+                "name": "port4",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "4002",
+                "quantity": "4"
+            },
+            {
+                "name": "port5",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "5002",
+                "quantity": "4"
+            },
+            {
+                "name": "port6",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "6002",
+                "quantity": "4"
+            },
+            {
+                "name": "port7",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "7002",
+                "quantity": "4"
+            },
+            {
+                "name": "port8",
+                "unitid": "1",
+                "fc": "FC3",
+                "address": "8002",
+                "quantity": "4"
+            }
+        ],
+        "server": "93c31dd18f2893b1",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "30589adc5e5bc678"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2124ffc006b94bf3",
+        "type": "inject",
+        "z": "b380fede0a5e6e03",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "a559cbfd2aab7f39"
+            ]
+        ]
+    },
+    {
+        "id": "6bf2357f8654e899",
+        "type": "debug",
+        "z": "b380fede0a5e6e03",
+        "name": "debug 177",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e15d3eaae5ca27bc",
+        "type": "modbus-getter",
+        "z": "b380fede0a5e6e03",
+        "name": "Get X1-X4 status",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "199",
+        "quantity": "4",
+        "server": "93c31dd18f2893b1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "84bc71a438406291"
+            ]
+        ]
+    },
+    {
+        "id": "26cd13ee742a49cc",
+        "type": "inject",
+        "z": "b380fede0a5e6e03",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "e15d3eaae5ca27bc",
+                "f6fc560f423beaad"
+            ]
+        ]
+    },
+    {
+        "id": "84bc71a438406291",
+        "type": "debug",
+        "z": "b380fede0a5e6e03",
+        "name": "debug 184",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f6fc560f423beaad",
+        "type": "modbus-getter",
+        "z": "b380fede0a5e6e03",
+        "name": "Get X5-X8 status",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "299",
+        "quantity": "4",
+        "server": "93c31dd18f2893b1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [],
+            [
+                "b908dd779703158e"
+            ]
+        ]
+    },
+    {
+        "id": "b908dd779703158e",
+        "type": "debug",
+        "z": "b380fede0a5e6e03",
+        "name": "debug 185",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "30589adc5e5bc678",
+        "type": "join",
+        "z": "b380fede0a5e6e03",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "name",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 750,
+        "y": 320,
+        "wires": [
+            [
+                "6bf2357f8654e899"
+            ]
+        ]
+    },
+    {
+        "id": "900e8618e8b1d940",
+        "type": "comment",
+        "z": "b380fede0a5e6e03",
+        "name": "Pruebas con Maestro AL1342",
+        "info": "",
+        "x": 300,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e01ebc2b4946bae3",
+        "type": "comment",
+        "z": "b380fede0a5e6e03",
+        "name": "Revisar bien el manual del Maestro AL1342",
+        "info": "",
+        "x": 490,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "93c31dd18f2893b1",
+        "type": "modbus-client",
+        "name": "IO - Link Master",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.82.85",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    }
+]

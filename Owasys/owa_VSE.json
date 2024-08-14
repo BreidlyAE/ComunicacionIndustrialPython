@@ -1,0 +1,239 @@
+[
+    {
+        "id": "1563dafc93693ecf",
+        "type": "exec",
+        "z": "c1eb665110bf8caf",
+        "command": "LD_LIBRARY_PATH=/home/debian/test-vse && export LD_LIBRARY_PATH && /home/debian/test-vse/SpectrumReader --host 192.168.82.54 --port 3321 -udp --1 6_104,9000",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Init VSE ",
+        "x": 380,
+        "y": 60,
+        "wires": [
+            [
+                "9032c151f9d4202d"
+            ],
+            [
+                "9032c151f9d4202d"
+            ],
+            [
+                "9032c151f9d4202d"
+            ]
+        ]
+    },
+    {
+        "id": "9032c151f9d4202d",
+        "type": "debug",
+        "z": "c1eb665110bf8caf",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d30a3a431d6d4792",
+        "type": "inject",
+        "z": "c1eb665110bf8caf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "1563dafc93693ecf"
+            ]
+        ]
+    },
+    {
+        "id": "43033ed34f8a9951",
+        "type": "inject",
+        "z": "c1eb665110bf8caf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "d5cec814c5b6ed24"
+            ]
+        ]
+    },
+    {
+        "id": "d5cec814c5b6ed24",
+        "type": "exec",
+        "z": "c1eb665110bf8caf",
+        "command": "/home/debian/test-vse/SpectrumDescriptor read 192.168.82.54 --sensor 1",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Obtención del espectro",
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "52484078eba7bbb2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ee96ef19c87f545a",
+        "type": "debug",
+        "z": "c1eb665110bf8caf",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "52484078eba7bbb2",
+        "type": "json",
+        "z": "c1eb665110bf8caf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "ee96ef19c87f545a"
+            ]
+        ]
+    },
+    {
+        "id": "c293ffcc8edd01d3",
+        "type": "inject",
+        "z": "c1eb665110bf8caf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 240,
+        "wires": [
+            [
+                "bbd7ada0db80f260"
+            ]
+        ]
+    },
+    {
+        "id": "bbd7ada0db80f260",
+        "type": "exec",
+        "z": "c1eb665110bf8caf",
+        "command": "/home/debian/test-vse/SpectrumDescriptor info 192.168.82.54",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Obtener el estado del VSE",
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "4399513f0664a5fd"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7a2d6993c8d2c8e7",
+        "type": "debug",
+        "z": "c1eb665110bf8caf",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4399513f0664a5fd",
+        "type": "json",
+        "z": "c1eb665110bf8caf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "7a2d6993c8d2c8e7"
+            ]
+        ]
+    }
+]

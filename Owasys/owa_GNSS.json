@@ -1,0 +1,85 @@
+[
+    {
+        "id": "152a0b99b5cf175c",
+        "type": "inject",
+        "z": "3e5f70faaba22eaf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "217bc2caa6730966"
+            ]
+        ]
+    },
+    {
+        "id": "217bc2caa6730966",
+        "type": "exec",
+        "z": "3e5f70faaba22eaf",
+        "command": "/home/debian/owasys4x_binaries/POLLUX_GPS 10001",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 490,
+        "y": 80,
+        "wires": [
+            [
+                "bc0e7c424e5ee00a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ec1f737c2ff4f2ee",
+        "type": "debug",
+        "z": "3e5f70faaba22eaf",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "bc0e7c424e5ee00a",
+        "type": "json",
+        "z": "3e5f70faaba22eaf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 80,
+        "wires": [
+            [
+                "ec1f737c2ff4f2ee"
+            ]
+        ]
+    }
+]
