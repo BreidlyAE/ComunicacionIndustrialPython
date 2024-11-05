@@ -1,0 +1,93 @@
+PROGRAM Joystick_CAN
+VAR
+	CAN_RX_Joystick: ifmRCAN.CAN_Rx;
+	
+	dataJoystick1: ARRAY [0..7] OF USINT;
+	dataJoystick2: ARRAY [0..7] OF USINT;
+	
+	UnpackDataJoystickAxisY: UNPACK;
+	UnpackDataJoystickAxisX: UNPACK;
+	UnpackDataFrontButtons: UNPACK;
+	UnpackDataBackButtons: UNPACK;
+	UnpackDataScrollJoystick: UNPACK;
+	
+	Y_Axis_up: UINT;
+	Y_Axis_down: UINT;
+	X_Axis_left: UINT;
+	X_Axis_Right: UINT;
+	
+	frontButton1 : BOOL;
+	frontButton2 : BOOL;
+	frontButton3 : BOOL;
+	frontButton4: BOOL;
+	
+	backButton1: BOOL;
+	backButton2: BOOL;
+	
+	scrollUp: UINT;
+	scrollDown: UINT;
+END_VAR
+
+//================================================================================================================
+
+//Recepcion Datos CAN del Joystick
+
+CAN_RX_Joystick(xEnable:= TRUE, eChannel:= 0, xExtended:= TRUE, udiID:= 217962035,
+				xError=> , eDiagInfo=> , aData=> , usiDLC=> , uiAvailable=> );
+
+//Intervalo 1
+IF CAN_RX_Joystick.eDiagInfo = 1 AND NOT (CAN_RX_Joystick.aData[0] = 254) AND NOT (CAN_RX_Joystick.aData[1] = 254) THEN
+	dataJoystick1 := CAN_RX_Joystick.aData;
+	
+	UnpackDataJoystickAxisY(B:= dataJoystick1[2]);
+	IF UnpackDataJoystickAxisY.B2 THEN
+		Y_Axis_down := (TO_UINT(dataJoystick1[3])*256) + dataJoystick1[2];
+	END_IF		
+	IF UnpackDataJoystickAxisY.B4 THEN
+		Y_Axis_up := (TO_UINT(dataJoystick1[3])*256) + dataJoystick1[2];
+	END_IF
+	IF UnpackDataJoystickAxisY.B0 THEN
+		Y_Axis_down := 0;
+		Y_Axis_up := 0;
+	END_IF
+	
+	UnpackDataJoystickAxisX(B:= dataJoystick1[0]);
+	IF UnpackDataJoystickAxisX.B2 THEN
+		X_Axis_left := (TO_UINT(dataJoystick1[1])*256) + dataJoystick1[0];
+	END_IF		
+	IF UnpackDataJoystickAxisX.B4 THEN
+		X_Axis_right := (TO_UINT(dataJoystick1[1])*256) + dataJoystick1[0];
+	END_IF
+	IF UnpackDataJoystickAxisX.B0 THEN
+		X_Axis_left := 0;
+		X_Axis_right := 0;
+	END_IF
+	
+	UnpackDataFrontButtons(B:= dataJoystick1[5]);
+		frontButton1 := UnpackDataFrontButtons.B0;
+		frontButton2 := UnpackDataFrontButtons.B2;
+		frontButton3 := UnpackDataFrontButtons.B4;
+		frontButton4 := UnpackDataFrontButtons.B6;
+	
+	UnpackDataBackButtons(B:= dataJoystick1[6]);
+		backButton1 := UnpackDataBackButtons.B0;
+		backButton2 := UnpackDataBackButtons.B2;
+END_IF
+
+//Intervalo 2
+IF  CAN_RX_Joystick.aData[0] = 254 AND CAN_RX_Joystick.aData[1] = 254 THEN
+	dataJoystick2 := CAN_RX_Joystick.aData;
+	
+	UnpackDataScrollJoystick(B:= dataJoystick2[2]);
+	
+	IF UnpackDataScrollJoystick.B2 THEN
+		scrollUp := (TO_UINT(dataJoystick2[3])* 256) + (TO_UINT(dataJoystick2[2]));
+	END_IF	
+	IF UnpackDataScrollJoystick.B4 THEN
+		scrollDown := (TO_UINT(dataJoystick2[3])*256) + dataJoystick2[2];
+	END_IF
+	IF UnpackDataScrollJoystick.B0 THEN
+		scrollUp := 0;
+		scrollDown := 0;
+	END_IF
+END_IF
